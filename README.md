@@ -7,6 +7,7 @@ A digital version of the [Blood on the Clocktower](https://bloodontheclocktower.
 ## Table of Contents
 
 - [Getting Started](#getting-started)
+- [Run with Docker](#run-with-docker)
 - [Custom Scripts](#custom-scripts)
 - [Homebrew Characters](homebrew.md)
 - [Translations and Typos](#translations-and-typos)
@@ -50,6 +51,65 @@ Organise the grimoire however you prefer, add any reminder tokens that you need,
 ![The tokens have been sorted in the grimoire](https://raw.githubusercontent.com/Skateside/pocket-grimoire/main/assets/img/docs/game-ready.jpg)
 
 You're now ready to play a game of Blood on the Clocktower - have fun!
+
+## Run with Docker
+
+You can work on the project without installing PHP, Composer, Node.js or Yarn locally. All tooling runs inside Docker containers.
+
+1. Copy `.env` to `.env.local` if you need to override defaults. (Optional — the containers already provide an internal MySQL URL.)
+2. Build and start the stack:
+
+   ```bash
+   docker compose up --build
+   ```
+
+   The first startup installs Composer and Yarn dependencies and builds frontend assets before launching the PHP development server at `http://localhost:8000`.
+
+3. Stop the stack with `docker compose down` when you're done.
+
+### Initialise the database
+
+Run these commands from the project root to create the schema and seed the reference data without installing any local tooling:
+
+```bash
+# create the tables
+docker compose exec app php bin/console doctrine:migrations:migrate
+
+# populate editions, teams, and roles (order matters)
+docker compose exec app php bin/console pocket-grimoire:populate-editions --file=assets/data/editions.json --locale=en_GB
+docker compose exec app php bin/console pocket-grimoire:populate-teams --file=assets/data/teams.json --locale=en_GB
+docker compose exec app php bin/console pocket-grimoire:populate-roles --file=assets/data/characters.json --locale=en_GB
+
+# import jinx text (and other data) once the base records exist
+docker compose exec app php bin/console pocket-grimoire:import --new=no --type=jinxes --locale=en_GB
+```
+
+Add `--locale=all` to the import command when you want to load every available translation.
+
+### Common commands
+
+Run project tooling through the `app` service. Examples:
+
+- Install PHP packages (usually handled automatically on container start):
+
+  ```bash
+  docker compose run --rm app composer install
+  ```
+
+- Execute Symfony console commands:
+
+   ```bash
+   docker compose exec app php bin/console doctrine:migrations:migrate
+   ```
+
+- Build or watch frontend assets:
+
+  ```bash
+  docker compose run --rm app yarn dev        # one-off build
+  docker compose run --rm app yarn watch      # rebuild on changes
+  ```
+
+All generated files (vendor, `node_modules`, compiled assets) live in Docker volumes, keeping the working tree clean.
 
 ## Custom Scripts
 

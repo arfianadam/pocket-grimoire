@@ -11,14 +11,62 @@ import {
 import {
     shuffle
 } from "../../utils/arrays.js";
+import {
+    clamp
+} from "../../utils/numbers.js";
 
 const gameObserver = Observer.create("game");
 const characterDecisionDialog = Dialog.create(lookupOne("#character-decision"));
 const playerName = lookupOne("#player-name");
+let drawQueue = [];
+
+/**
+ * Builds the draw queue while placing the Imp at the provided draw order, when
+ * possible.
+ *
+ * @param {Array.<CharacterToken>} characters
+ *        Collection of characters to present for drawing.
+ * @param {?Number} impDrawOrder
+ *        1-based order in which the Imp should be drawn, or null for random.
+ * @return {Array.<CharacterToken>}
+ *        Ordered collection of characters.
+ */
+function buildDrawQueue(characters, impDrawOrder) {
+
+    if (!Array.isArray(characters) || !characters.length) {
+        return [];
+    }
+
+    const clones = characters.map((character) => character.clone());
+
+    if (!impDrawOrder) {
+        return shuffle(clones);
+    }
+
+    const impIndex = clones.findIndex((character) => (
+        typeof character?.getId === "function"
+        && character.getId() === "imp"
+    ));
+
+    if (impIndex === -1) {
+        return shuffle(clones);
+    }
+
+    const impCharacter = clones[impIndex];
+    const remaining = clones.filter((_, index) => index !== impIndex);
+    const shuffledRemaining = shuffle(remaining);
+    const insertIndex = clamp(0, impDrawOrder - 1, shuffledRemaining.length);
+
+    shuffledRemaining.splice(insertIndex, 0, impCharacter);
+
+    return shuffledRemaining;
+
+}
 
 gameObserver.on("character-draw", ({ detail }) => {
 
     if (detail.isShowAll) {
+        drawQueue = [];
         return;
     }
 
@@ -26,17 +74,19 @@ gameObserver.on("character-draw", ({ detail }) => {
         lookupOneCached("#character-choice-template")
     );
 
+    drawQueue = buildDrawQueue(detail.characters || [], detail.impDrawOrder);
+    const { length } = drawQueue;
+
     replaceContentsMany(
         lookupOneCached("#character-choice-wrapper"),
-        shuffle(detail.characters)
-            .map((character, i) => template.draw({
-                "[data-id]"(element) {
-                    element.dataset.id = character.getId();
-                },
-                ".js--character-choice--number"(element) {
-                    element.textContent = i + 1;
-                }
-            }))
+        Array.from({ length }).map((_, i) => template.draw({
+            "[data-id]"(element) {
+                element.dataset.id = String(i);
+            },
+            ".js--character-choice--number"(element) {
+                element.textContent = i + 1;
+            }
+        }))
     );
 
     Dialog.create(lookupOneCached("#character-choice")).show();
@@ -74,16 +124,15 @@ lookupOneCached("#character-choice").addEventListener("click", ({ target }) => {
         return;
     }
 
-    TokenStore.ready((tokenStore) => {
+    const character = drawQueue.shift();
 
-        // Add a clone of the character so that duplicated characters are still
-        // considered unique.
+    if (!character) {
+        return;
+    }
 
-        gameObserver.trigger("character-drawn", {
-            element,
-            character: tokenStore.getCharacter(element.dataset.id).clone()
-        });
-
+    gameObserver.trigger("character-drawn", {
+        element,
+        character
     });
 
 });

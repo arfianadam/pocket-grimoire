@@ -76,6 +76,8 @@ setup:
         toggle_abilities: Show character abilities
         toggle_duplicates: Allow duplicate characters
         highlight_random: Highlight random
+        imp_draw_order: Imp draw order
+        imp_draw_order_help: e.g. set to 2 so the second draw receives the Imp; leave blank for random
         draw_characters: Draw Characters
         add_all: Add All
         layout: Layout

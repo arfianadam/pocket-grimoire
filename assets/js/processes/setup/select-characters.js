@@ -86,11 +86,14 @@ gameObserver.on("team-breakdown-loaded", ({ detail }) => {
 
     playerCount.addEventListener("input", () => {
 
+        impDrawInput.max = playerCount.value;
         gameObserver.trigger("player-count", {
             count: Number(playerCount.value)
         });
 
     });
+
+    impDrawInput.max = playerCount.value;
 
     function getBreakdown() {
 
@@ -163,11 +166,25 @@ gameObserver.on("characters-selected", ({ detail }) => {
     const playerCount = lookupOneCached("#player-count");
 
     playerCount.max = maxPlayers;
-
+    
     if (playerCount.value >= maxPlayers) {
 
         playerCount.value = maxPlayers;
         announceInput(playerCount);
+
+    }
+
+    impDrawInput.max = maxPlayers;
+
+    const currentImpValue = Number.parseInt(impDrawInput.value, 10);
+
+    if (Number.isInteger(currentImpValue)) {
+
+        if (currentImpValue > maxPlayers) {
+            impDrawInput.value = String(maxPlayers);
+        } else if (currentImpValue < 1) {
+            impDrawInput.value = "";
+        }
 
     }
 
@@ -315,6 +332,7 @@ gameObserver.on("character-toggle", ({ detail }) => {
 });
 
 const validationInput = lookupOne("#player-select-validation");
+const impDrawInput = lookupOneCached("#imp-draw-order");
 
 gameObserver.on("character-count-change", ({ detail }) => {
 
@@ -381,9 +399,43 @@ lookupOne("#player-select").addEventListener("submit", (e) => {
             validationInput.setCustomValidity("");
 
             const isShowAll = Boolean(e.submitter?.id === "player-select-all");
+            const impCount = filtered.length;
+            const rawImpValue = Number.parseInt(impDrawInput.value, 10);
+            let impDrawOrder = Number.isInteger(rawImpValue) ? rawImpValue : null;
+
+            if (impCount) {
+                impDrawInput.max = impCount;
+            } else {
+                impDrawInput.removeAttribute("max");
+            }
+
+            if (impDrawOrder !== null && impDrawOrder < 1) {
+                impDrawOrder = null;
+                impDrawInput.value = "";
+            }
+
+            const hasImp = filtered.some((character) => character.getId() === "imp");
+
+            if (!hasImp || !impCount) {
+                impDrawOrder = null;
+            } else if (impDrawOrder !== null) {
+
+                const clamped = clamp(1, impDrawOrder, impCount);
+
+                if (clamped !== impDrawOrder) {
+                    impDrawOrder = clamped;
+                    impDrawInput.value = String(clamped);
+                }
+
+            }
 
             gameObserver.trigger("character-draw", {
                 isShowAll,
+                impDrawOrder: (
+                    isShowAll
+                    ? null
+                    : impDrawOrder
+                ),
                 characters: (
                     isShowAll
                     ? shuffle(filtered)
