@@ -6,12 +6,14 @@ A digital version of the [Blood on the Clocktower](https://bloodontheclocktower.
 
 ## Table of Contents
 
-- [Getting Started](#getting-started)
-- [Run with Docker](#run-with-docker)
-- [Custom Scripts](#custom-scripts)
-- [Homebrew Characters](homebrew.md)
-- [Translations and Typos](#translations-and-typos)
-- [Contributing](CONTRIBUTING.md)
+- [Pocket Grimoire](#pocket-grimoire)
+  - [Table of Contents](#table-of-contents)
+  - [Getting Started](#getting-started)
+  - [Run with Docker](#run-with-docker)
+    - [Initialise the database](#initialise-the-database)
+    - [Common commands](#common-commands)
+  - [Custom Scripts](#custom-scripts)
+  - [Translations and Typos](#translations-and-typos)
 
 ## Getting Started
 
@@ -75,16 +77,18 @@ Run these commands from the project root to create the schema and seed the refer
 # create the tables
 docker compose exec app php bin/console doctrine:migrations:migrate
 
-# populate editions, teams, and roles (order matters)
+# populate base editions and teams (order matters)
 docker compose exec app php bin/console pocket-grimoire:populate-editions --file=assets/data/editions.json --locale=en_GB
 docker compose exec app php bin/console pocket-grimoire:populate-teams --file=assets/data/teams.json --locale=en_GB
-docker compose exec app php bin/console pocket-grimoire:populate-roles --file=assets/data/characters.json --locale=en_GB
 
-# import jinx text (and other data) once the base records exist
-docker compose exec app php bin/console pocket-grimoire:import --new=no --type=jinxes --locale=en_GB
+# create/update the English characters and jinxes
+docker compose exec app php bin/console pocket-grimoire:import --new=yes --type=all --locale=en_GB
+
+# import teams, characters, and jinxes in every available non-English locale
+docker compose exec app php bin/console pocket-grimoire:import --new=no --type=all --locale=all
 ```
 
-Add `--locale=all` to the import command when you want to load every available translation.
+The `all` locale is supported by `pocket-grimoire:import`, which expands it to every configured locale except the base `en_GB` locale. Editions currently only have base-locale data, so populate them with `--locale=en_GB`; the `pocket-grimoire:populate-editions` command does not support `--locale=all`.
 
 ### Common commands
 
