@@ -1,3 +1,5 @@
+import "regenerator-runtime/runtime";
+
 // import "./processes/errors.js";
 
 import "./processes/setup/general.js";
@@ -27,3 +29,4 @@ import "./processes/notes.js";
 import "./processes/acknowledgements.js";
 
 import "./processes/store.js";
+import "./processes/distributed-draw.js";

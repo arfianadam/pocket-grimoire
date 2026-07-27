@@ -40,6 +40,8 @@ messages:
     version_change_message: Aplikasi ini telah memperbarui versinya. Karena data Anda mungkin tidak benar, kami menyarankan Anda untuk menghapus semuanya di dialog "Clear Cache". Tekan "OK" untuk membuka dialog atau "Cancel" untuk menutup pesan ini.
     invalid_script: Format skrip tidak dikenali.
     no_characters: Skrip tidak mengandung karakter yang dikenali.
+    invalid_data: Data tidak valid.
+    no_data: Tidak ada data yang dikirim.
     player_name: Siapa nama pemain ini?
     custom_info_token: "Apa yang Anda ingin tulis pada token info baru Anda? Gunakan **asterisk ganda** untuk menekankan teks."
     bag_disabled: "Karakter-karakter ini tidak dapat ditambahkan ke kantong: {0}"
@@ -51,6 +53,7 @@ setup:
     buttons:
         select_edition: Pilih Edisi
         select_characters: Pilih Karakter
+        draw_room: Ruang pengundian
         qr_code_button: Lembar Karakter
         clear_cache_button: Hapus Cache
         language: Bahasa
@@ -76,7 +79,10 @@ setup:
         toggle_abilities: Tampilkan kemampuan karakter
         toggle_duplicates: Izinkan karakter duplikat
         highlight_random: Sorot acak
+        imp_draw_order: Urutan pengambilan Imp
+        imp_draw_order_help: mis. atur ke 2 agar pengambilan kedua mendapatkan Imp; kosongkan untuk urutan acak
         draw_characters: Ambil Karakter
+        draw_on_devices: Ambil lewat perangkat
         add_all: Tambah Semua
         layout: Layout
         ellipse: Ellipse
@@ -92,6 +98,23 @@ setup:
         title: Ingat Karakter Anda
         name: Berikan nama (opsional)
         return: Kembali ke Pilih Karakter
+
+    distributed_draw:
+        title: Ambil lewat perangkat
+        scan: Pemain dapat memindai kode ini atau membuka tautan untuk memilih token bernomor.
+        expires: "Kedaluwarsa:"
+        end: Akhiri ruang pengundian
+        available: Tersedia
+        naming: Menentukan nama
+        completed: Selesai
+        player_name: Nama pemain
+        save: Simpan
+        release: Lepaskan nomor
+        progress: "{completed} dari {total} pemain selesai"
+        creating: Membuat ruang pengundian…
+        replace_confirm: Akhiri ruang pengundian yang aktif dan mulai yang baru?
+        release_confirm: Lepaskan nomor ini? Token pemain yang telah selesai akan dihapus.
+        end_confirm: Akhiri ruang ini? Pemain tidak akan dapat lagi memilih nomor atau mengirimkan nama.
 
     qr_code:
         title: Lembar karakter
@@ -122,9 +145,26 @@ setup:
         height_note: Tinggi pad di grimoire.
         clear_refresh_label: Segarkan setelahnya
         clear_refresh_note: Menyegarkan akan memuat data baru untuk segala sesuatu yang telah dihapus.
-        warning: "<strong>Peringatan:</strong> token yang telah ditempatkan pada grimoire akan terlupakan."
+        warning: "<strong>Peringatan:</strong> token yang telah ditempatkan pada grimoire akan terlupakan. Ruang pengundian terdistribusi yang aktif juga akan diakhiri."
         info_token_warning: "<strong>Peringatan:</strong> token info kustom akan terlupakan."
         clear_cache: Hapus Cache
+
+draw:
+    title: Ambil karakter Anda
+    description: Pilih token bernomor pribadi untuk pengambilan karakter terdistribusi.
+    choose: Pilih nomor yang tersedia.
+    number: "Nomor Anda:"
+    name: Masukkan nama Anda untuk menyelesaikan
+    complete: Tambahkan saya ke grimoire
+    claiming: Jaga kerahasiaan karakter Anda, lalu masukkan nama Anda.
+    unavailable: Pemain lain telah mengambil nomor tersebut. Pilih nomor lain.
+    released: Storyteller telah melepaskan nomor Anda. Silakan pilih lagi.
+    completed: Anda telah ditambahkan ke grimoire Storyteller.
+    ended: Ruang pengundian ini telah berakhir.
+    expired: Ruang pengundian ini telah kedaluwarsa.
+    hide_role: Sembunyikan karakter
+    reveal_role: Tampilkan karakter
+    unknown_error: Terjadi kesalahan. Coba lagi.
 
 grimoire:
 

@@ -261,6 +261,12 @@ export default class Store {
         data.tokens[index] = {
             id: token.getId()
         };
+
+        if (token.distributedMetadata) {
+            data.tokens[index].distributed = deepClone(token.distributedMetadata);
+            data.tokens[index].characterSnapshot = token.getAllData();
+        }
+
         this.write();
 
         return index;

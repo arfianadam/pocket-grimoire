@@ -108,6 +108,7 @@
 
         <ul class="button-list">
             <li><button type="submit" class="button button--full-height">{{ 'setup.character_select.draw_characters'|trans }}</button></li>
+            <li><button type="submit" class="button button--full-height" id="player-select-distributed">{{ 'setup.character_select.draw_on_devices'|trans }}</button></li>
             <li><button type="submit" class="button button--full-height" id="player-select-all">{{ 'setup.character_select.add_all'|trans }}</button></li>
         </ul>
 
@@ -183,3 +184,32 @@
 <template id="player-name-template">
     <option class="js--player-name--option">
 </template>
+
+{% embed 'includes/dialog.html.twig' with {
+    id: 'distributed-draw-host',
+    background: 'hide',
+    title: 'setup.distributed_draw.title'|trans
+} %}
+    {% block body %}
+        <div id="distributed-draw-host-content">
+            <p id="distributed-draw-host-message" role="status"></p>
+            <div id="distributed-draw-host-active" hidden>
+                <p>{{ 'setup.distributed_draw.scan'|trans }}</p>
+                <a id="distributed-draw-link" class="distributed-draw__link" target="_blank" rel="noopener noreferrer">
+                    <span id="distributed-draw-qr" class="qr distributed-draw__qr"></span>
+                    <span id="distributed-draw-link-text"></span>
+                </a>
+                <p class="mt-4">
+                    <strong id="distributed-draw-progress"></strong><br>
+                    <span class="text-small">{{ 'setup.distributed_draw.expires'|trans }} <time id="distributed-draw-expiry"></time></span>
+                </p>
+                <ol id="distributed-draw-host-slots" class="distributed-draw__host-slots"></ol>
+                <p>
+                    <button type="button" class="button button--warning" id="distributed-draw-end">
+                        {{ 'setup.distributed_draw.end'|trans }}
+                    </button>
+                </p>
+            </div>
+        </div>
+    {% endblock %}
+{% endembed %}

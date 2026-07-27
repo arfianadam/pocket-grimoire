@@ -42,9 +42,27 @@ var I18N = {
     noCharacters: "{{ 'messages.no_characters'|trans|e('js') }}",
     customInfoToken: "{{ 'messages.custom_info_token'|trans|e('js') }}",
     bagDisabled: "{{ 'messages.bag_disabled'|trans|e('js') }}",
+    distributedUnknown: "{{ 'draw.unknown_error'|trans|e('js') }}",
+    distributedAvailable: "{{ 'setup.distributed_draw.available'|trans|e('js') }}",
+    distributedNaming: "{{ 'setup.distributed_draw.naming'|trans|e('js') }}",
+    distributedCompleted: "{{ 'setup.distributed_draw.completed'|trans|e('js') }}",
+    distributedPlayerName: "{{ 'setup.distributed_draw.player_name'|trans|e('js') }}",
+    distributedSave: "{{ 'setup.distributed_draw.save'|trans|e('js') }}",
+    distributedRelease: "{{ 'setup.distributed_draw.release'|trans|e('js') }}",
+    distributedProgress: "{{ 'setup.distributed_draw.progress'|trans|e('js') }}",
+    distributedEnded: "{{ 'draw.ended'|trans|e('js') }}",
+    distributedCreating: "{{ 'setup.distributed_draw.creating'|trans|e('js') }}",
+    distributedReplaceConfirm: "{{ 'setup.distributed_draw.replace_confirm'|trans|e('js') }}",
+    distributedReleaseConfirm: "{{ 'setup.distributed_draw.release_confirm'|trans|e('js') }}",
+    distributedEndConfirm: "{{ 'setup.distributed_draw.end_confirm'|trans|e('js') }}",
 };
 
 var ENVIRONMENT = "{{ app.environment|e('js') }}";
+
+var DRAW_SESSION_CONFIG = {
+    createUrl: "{{ path('draw_session_create')|e('js') }}",
+    csrfToken: "{{ csrf_token('draw-session-create')|e('js') }}"
+};
 </script>
 {{ encore_entry_script_tags('js/main') }}
 {% endblock %}

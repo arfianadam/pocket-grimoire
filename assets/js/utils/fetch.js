@@ -10,14 +10,21 @@
  *         URL from which to get the data.
  * @param  {Store} store
  *         Store that will store the results.
+ * @param  {Function} [isCacheValid]
+ *         Optional predicate for rejecting stale cached data.
  * @return {Promise}
  *         Promise that resolves with the data from the lookup.
  */
-export function fetchFromStore(key, url, store) {
+export function fetchFromStore(
+    key,
+    url,
+    store,
+    isCacheValid = (results) => results !== undefined
+) {
 
     const results = store.getLookup(key);
 
-    if (results !== undefined) {
+    if (isCacheValid(results)) {
         return Promise.resolve(results);
     }
 

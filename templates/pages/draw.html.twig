@@ -1,0 +1,67 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ 'draw.title'|trans }}{% endblock %}
+{% set meta_description = 'draw.description'|trans %}
+{% set body_class = 'body-grimoire body-draw' %}
+
+{% block styles %}{{ encore_entry_link_tags('css/main') }}{% endblock %}
+
+{% block body %}
+<section class="distributed-draw distributed-draw--player">
+    <h1 class="title">{{ 'draw.title'|trans }}</h1>
+    <p id="draw-message" role="status">{{ loadError ?: 'draw.choose'|trans }}</p>
+
+    <div id="draw-picker" {{ loadError ? 'hidden' }}>
+        <div id="draw-slots" class="slot slot--3 distributed-draw__slots"></div>
+    </div>
+
+    <div id="draw-claim" hidden>
+        <p><strong>{{ 'draw.number'|trans }} <span id="draw-claim-number"></span></strong></p>
+        <div id="draw-role" class="distributed-draw__role">
+            <img id="draw-role-image" alt="" class="distributed-draw__role-image">
+            <h2 id="draw-role-name"></h2>
+            <p id="draw-role-ability"></p>
+        </div>
+        <p>
+            <button type="button" class="button" id="draw-role-visibility">
+                {{ 'draw.hide_role'|trans }}
+            </button>
+        </p>
+        <form id="draw-name-form">
+            <p>
+                <label for="draw-player-name" class="d-block">{{ 'draw.name'|trans }}</label>
+                <input type="text" class="input" id="draw-player-name" name="name" required maxlength="80" autocomplete="name">
+            </p>
+            <p><button type="submit" class="button">{{ 'draw.complete'|trans }}</button></p>
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+{% block javascript %}
+<script>
+var DRAW_PLAYER_CONFIG = {
+    publicId: {{ publicId|json_encode|raw }},
+    initialState: {{ initialState|json_encode|raw }},
+    loadError: {{ loadError|json_encode|raw }},
+    statusUrl: {{ path('draw_session_public', { publicId: publicId })|json_encode|raw }},
+    claimsUrl: {{ path('draw_session_claim', { publicId: publicId })|json_encode|raw }},
+    claimUrl: {{ path('draw_session_claim_state', { publicId: publicId })|json_encode|raw }},
+    topic: {{ topic|json_encode|raw }},
+    mercureUrl: {{ mercurePublicUrl|json_encode|raw }},
+    i18n: {
+        choose: {{ 'draw.choose'|trans|json_encode|raw }},
+        claiming: {{ 'draw.claiming'|trans|json_encode|raw }},
+        unavailable: {{ 'draw.unavailable'|trans|json_encode|raw }},
+        released: {{ 'draw.released'|trans|json_encode|raw }},
+        completed: {{ 'draw.completed'|trans|json_encode|raw }},
+        ended: {{ 'draw.ended'|trans|json_encode|raw }},
+        expired: {{ 'draw.expired'|trans|json_encode|raw }},
+        hideRole: {{ 'draw.hide_role'|trans|json_encode|raw }},
+        revealRole: {{ 'draw.reveal_role'|trans|json_encode|raw }},
+        unknown: {{ 'draw.unknown_error'|trans|json_encode|raw }}
+    }
+};
+</script>
+{{ encore_entry_script_tags('js/draw') }}
+{% endblock %}

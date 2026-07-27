@@ -1,0 +1,4 @@
+services:
+    App\Service\DrawSessionPublisher:
+        class: App\Tests\Double\TestDrawSessionPublisher
+        public: true

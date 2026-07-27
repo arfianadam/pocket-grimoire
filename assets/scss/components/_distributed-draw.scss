@@ -1,0 +1,108 @@
+.distributed-draw {
+    width: min(100%, 48rem);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.distributed-draw--player {
+    padding: 1rem;
+    border: 0.15rem solid #000;
+    border-radius: 0.5rem;
+    background: rgb(255 254 240 / 94%);
+    box-shadow: 0.2rem 0.2rem 0.6rem rgb(0 0 0 / 40%);
+}
+
+.distributed-draw__link {
+    display: block;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+
+.distributed-draw__qr {
+    width: min(100%, 18rem);
+    margin-right: auto;
+    margin-bottom: 0.5rem;
+    margin-left: auto;
+}
+
+.distributed-draw__host-slots {
+    padding-left: 1.5rem;
+}
+
+.distributed-draw__host-slot {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    border-left: 0.4rem solid var(--blue);
+    background: rgb(255 255 255 / 55%);
+
+    &.is-naming {
+        border-left-color: var(--orange);
+    }
+
+    &.is-completed {
+        border-left-color: var(--green);
+    }
+}
+
+.distributed-draw__rename {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.distributed-draw__release {
+    width: auto;
+    margin-top: 0.5rem;
+}
+
+.distributed-draw__slots {
+    align-items: start;
+}
+
+.distributed-draw__number {
+    width: 100%;
+}
+
+.distributed-draw__role {
+    position: relative;
+    overflow: hidden;
+    min-height: 12rem;
+    padding: 1rem;
+    border: 0.1rem solid #000;
+    border-radius: 0.4rem;
+    background: #fffef0;
+    text-align: center;
+
+    &.is-private {
+
+        > * {
+            visibility: hidden;
+        }
+
+        &::after {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            content: "?";
+            background: #222;
+            color: #fff;
+            font-family: var(--display-font);
+            font-size: 6rem;
+            visibility: visible;
+        }
+    }
+}
+
+.distributed-draw__role-image {
+    width: min(100%, 14rem);
+    margin-right: auto;
+    margin-bottom: 1rem;
+    margin-left: auto;
+}
+
+.distributed-draw__error {
+    color: #8b0000;
+    font-weight: bold;
+}

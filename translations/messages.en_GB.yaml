@@ -53,6 +53,7 @@ setup:
     buttons:
         select_edition: Select Edition
         select_characters: Select Characters
+        draw_room: Draw room
         qr_code_button: Character Sheet
         clear_cache_button: Clear Cache
         language: Language
@@ -80,6 +81,7 @@ setup:
         imp_draw_order: Imp draw order
         imp_draw_order_help: e.g. set to 2 so the second draw receives the Imp; leave blank for random
         draw_characters: Draw Characters
+        draw_on_devices: Draw on devices
         add_all: Add All
         layout: Layout
         ellipse: Ellipse
@@ -95,6 +97,23 @@ setup:
         title: Remember Your Character
         name: Name yourself (optional)
         return: Return to Character Select
+
+    distributed_draw:
+        title: Draw on devices
+        scan: Players can scan this code or open the link to choose a numbered token.
+        expires: "Expires:"
+        end: End draw room
+        available: Available
+        naming: Choosing a name
+        completed: Completed
+        player_name: Player name
+        save: Save
+        release: Release number
+        progress: "{completed} of {total} players completed"
+        creating: Creating the draw room…
+        replace_confirm: End the active draw room and start another?
+        release_confirm: Release this number? A completed player's token will be removed.
+        end_confirm: End this room? Players will no longer be able to claim or submit names.
 
     qr_code:
         title: Character sheet
@@ -125,9 +144,26 @@ setup:
         height_note: The height of the pad in the grimoire.
         clear_refresh_label: Refresh afterwards
         clear_refresh_note: Refreshing will load in new data for anything that's been cleared.
-        warning: "<strong>Warning:</strong> any tokens that have been placed on the grimoire will be forgotten."
+        warning: "<strong>Warning:</strong> any tokens that have been placed on the grimoire will be forgotten. An active distributed draw room will also be ended."
         info_token_warning: "<strong>Warning:</strong> any custom info tokens will be forgotten."
         clear_cache: Clear Cache
+
+draw:
+    title: Draw your character
+    description: Choose a private numbered token for a distributed character draw.
+    choose: Choose an available number.
+    number: "Your number:"
+    name: Enter your name to finish
+    complete: Add me to the grimoire
+    claiming: Keep your role private, then enter your name.
+    unavailable: Another player claimed that number. Choose another.
+    released: The storyteller released your number. Choose again.
+    completed: You have been added to the storyteller's grimoire.
+    ended: This draw room has ended.
+    expired: This draw room has expired.
+    hide_role: Hide role
+    reveal_role: Reveal role
+    unknown_error: Something went wrong. Try again.
 
 grimoire:
 

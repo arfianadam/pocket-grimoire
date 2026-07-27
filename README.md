@@ -9,9 +9,11 @@ A digital version of the [Blood on the Clocktower](https://bloodontheclocktower.
 - [Pocket Grimoire](#pocket-grimoire)
   - [Table of Contents](#table-of-contents)
   - [Getting Started](#getting-started)
+    - [Draw on devices](#draw-on-devices)
   - [Run with Docker](#run-with-docker)
     - [Initialise the database](#initialise-the-database)
     - [Common commands](#common-commands)
+    - [Distributed draw and Mercure](#distributed-draw-and-mercure)
   - [Custom Scripts](#custom-scripts)
   - [Translations and Typos](#translations-and-typos)
 
@@ -43,6 +45,14 @@ When you're happy with the selection, tap the "Draw Characters" button to let yo
 ![A series of tokens with numbers on them, from one to seven](https://raw.githubusercontent.com/Skateside/pocket-grimoire/main/assets/img/docs/select-numbers.jpg)
 
 Tapping on any of the numbers will show the token - that will be that player's character. As a token is chosen, that number is greyed out to prevent it being selected again.
+
+### Draw on devices
+
+“Draw on devices” is an alternative to passing the Storyteller's device around. Set the number of players, select or randomly highlight the same number of characters, then choose “Draw on devices”. The app creates a room and displays a link and QR code for the players.
+
+Each player chooses an available number on their own device, privately sees their character, and enters their name. Completed players are added to the Storyteller's grimoire in completion order. The Storyteller can rename a completed player, release a claimed number, or end the room from the draw-room panel. Releasing a completed number also removes its associated grimoire token.
+
+Rooms expire 24 hours after creation. The Storyteller's room credentials and each player's claim are stored only in their respective browsers, so clearing site data or switching browsers loses access to those controls. Starting a new distributed draw ends the active room after confirmation; clearing the in-game cache ends it and resets the grimoire.
 
 When all the tokens have been selected, close that screen and open the Grimoire section. Each of the chosen tokens will be added to the grimoire, with the first token on the bottom and the most recently chosen on at the top.
 
@@ -90,6 +100,13 @@ docker compose exec app php -d memory_limit=512M bin/console --no-debug pocket-g
 
 The `all` locale is supported by `pocket-grimoire:import`, which expands it to every configured locale except the base `en_GB` locale. Editions currently only have base-locale data, so populate them with `--locale=en_GB`; the `pocket-grimoire:populate-editions` command does not support `--locale=all`.
 
+Compose also initializes an isolated `app_test` database. Before running the PHP test suite for the first time, migrate it with:
+
+```bash
+docker compose exec app php bin/console doctrine:migrations:migrate --env=test --no-interaction
+docker compose exec app vendor/bin/phpunit
+```
+
 ### Common commands
 
 Run project tooling through the `app` service. Examples:
@@ -111,9 +128,47 @@ Run project tooling through the `app` service. Examples:
   ```bash
   docker compose run --rm app yarn dev        # one-off build
   docker compose run --rm app yarn watch      # rebuild on changes
+  docker compose run --rm app yarn build      # production build
   ```
 
 All generated files (vendor, `node_modules`, compiled assets) live in Docker volumes, keeping the working tree clean.
+
+### Distributed draw and Mercure
+
+The Compose stack includes the pinned `dunglas/mercure:v0.24.2` hub at `http://localhost:3000/.well-known/mercure`. “Draw on devices” uses that hub for version-only notifications and falls back to a 30-second recovery poll.
+
+For testing with physical phones on a local network, `localhost` is not reachable from the phone. Start Compose with URLs based on the development machine's LAN hostname or IP address:
+
+```bash
+MERCURE_PUBLIC_URL=http://192.168.1.10:3000/.well-known/mercure \
+MERCURE_CORS_ALLOWED_ORIGINS=http://192.168.1.10:8000 \
+docker compose up --build
+```
+
+Open `http://192.168.1.10:8000` on the Storyteller device so the generated join link uses the same reachable host. Replace the example address with the development machine's address.
+
+Production must provide all three values below. The internal URL is used by Symfony to publish; the public URL must be reachable by every player's device. Use a long, random JWT secret and configure the hub with the same publisher key.
+
+```dotenv
+MERCURE_URL=https://mercure.internal/.well-known/mercure
+MERCURE_PUBLIC_URL=https://example.com/.well-known/mercure
+MERCURE_JWT_SECRET=replace-with-a-random-production-secret
+```
+
+Configure the hub's `cors_origins` for the public Pocket Grimoire origin and ensure the public hub URL uses HTTPS when the application does. Run the cleanup command from a scheduler (hourly is sufficient) to delete rooms after their fixed 24-hour expiry:
+
+```bash
+php bin/console app:draw-sessions:cleanup
+```
+
+Endpoints reject expired rooms even before cleanup runs.
+
+To run the distributed-draw browser tests against the Compose stack, install Chromium in the app container once, then run Playwright:
+
+```bash
+docker compose exec app yarn playwright install --with-deps chromium
+docker compose exec app yarn test:e2e
+```
 
 ## Custom Scripts
 

@@ -21,7 +21,12 @@ import {
 const store = Store.create("pocket-grimoire");
 const gameObserver = Observer.create("game");
 
-fetchFromStore(`characters_${LANGUAGE}`, URLS.characters, store).then((characters) => {
+fetchFromStore(
+    `characters_${LANGUAGE}`,
+    URLS.characters,
+    store,
+    (characters) => Array.isArray(characters) && characters.length > 0
+).then((characters) => {
     gameObserver.trigger("characters-loaded", { characters });
 });
 

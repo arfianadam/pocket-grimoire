@@ -399,6 +399,9 @@ lookupOne("#player-select").addEventListener("submit", (e) => {
             validationInput.setCustomValidity("");
 
             const isShowAll = Boolean(e.submitter?.id === "player-select-all");
+            const isDistributed = Boolean(
+                e.submitter?.id === "player-select-distributed"
+            );
             const impCount = filtered.length;
             const rawImpValue = Number.parseInt(impDrawInput.value, 10);
             let impDrawOrder = Number.isInteger(rawImpValue) ? rawImpValue : null;
@@ -429,19 +432,30 @@ lookupOne("#player-select").addEventListener("submit", (e) => {
 
             }
 
-            gameObserver.trigger("character-draw", {
-                isShowAll,
-                impDrawOrder: (
-                    isShowAll
-                    ? null
-                    : impDrawOrder
-                ),
-                characters: (
-                    isShowAll
-                    ? shuffle(filtered)
-                    : filtered
-                )
-            });
+            if (isDistributed) {
+
+                gameObserver.trigger("distributed-draw-request", {
+                    impDrawOrder,
+                    characters: filtered
+                });
+
+            } else {
+
+                gameObserver.trigger("character-draw", {
+                    isShowAll,
+                    impDrawOrder: (
+                        isShowAll
+                        ? null
+                        : impDrawOrder
+                    ),
+                    characters: (
+                        isShowAll
+                        ? shuffle(filtered)
+                        : filtered
+                    )
+                });
+
+            }
 
             Dialog.create(lookupOneCached("#character-select")).hide();
 

@@ -1,6 +1,7 @@
 import Store from "../classes/Store.js";
 import Observer from "../classes/Observer.js";
 import TokenStore from "../classes/TokenStore.js";
+import CharacterToken from "../classes/CharacterToken.js";
 // import Bluffs from "../classes/Bluffs.js";
 import BluffsGroups from "../classes/BluffsGroups.js";
 import Dialog from "../classes/Dialog.js";
@@ -213,14 +214,30 @@ TokenStore.ready((tokenStore) => {
         isDead,
         isUpsideDown,
         playerName,
-        ghostVote
+        ghostVote,
+        distributed,
+        characterSnapshot
     }) => {
 
         const isCharacter = TokenStore.isCharacterId(id);
+        const restoredToken = (
+            isCharacter
+            ? (
+                distributed && characterSnapshot
+                ? new CharacterToken(characterSnapshot)
+                : tokenStore.getCharacterClone(id)
+            )
+            : tokenStore.getReminderClone(id)
+        );
+
+        if (isCharacter && distributed) {
+            restoredToken.distributedMetadata = distributed;
+        }
+
         const info = (
             isCharacter
-            ? pad.addCharacter(tokenStore.getCharacterClone(id))
-            : pad.addReminder(tokenStore.getReminderClone(id))
+            ? pad.addCharacter(restoredToken)
+            : pad.addReminder(restoredToken)
         );
         const {
             token,
