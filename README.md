@@ -85,7 +85,7 @@ docker compose exec app php bin/console pocket-grimoire:populate-teams --file=as
 docker compose exec app php bin/console pocket-grimoire:import --new=yes --type=all --locale=en_GB
 
 # import teams, characters, and jinxes in every available non-English locale
-docker compose exec app php bin/console pocket-grimoire:import --new=no --type=all --locale=all
+docker compose exec app php -d memory_limit=512M bin/console --no-debug pocket-grimoire:import --new=no --type=all --locale=all
 ```
 
 The `all` locale is supported by `pocket-grimoire:import`, which expands it to every configured locale except the base `en_GB` locale. Editions currently only have base-locale data, so populate them with `--locale=en_GB`; the `pocket-grimoire:populate-editions` command does not support `--locale=all`.
