@@ -68,7 +68,7 @@ You're now ready to play a game of Blood on the Clocktower - have fun!
 
 You can work on the project without installing PHP, Composer, Node.js or Yarn locally. All tooling runs inside Docker containers.
 
-1. Copy `.env` to `.env.local` if you need to override defaults. (Optional — the containers already provide an internal MySQL URL.)
+1. Copy `.env.example` to `.env`, then adjust any local overrides you need. The containers already provide an internal MySQL URL.
 2. Build and start the stack:
 
    ```bash
