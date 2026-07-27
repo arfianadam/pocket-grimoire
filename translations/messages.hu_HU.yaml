@@ -31,6 +31,7 @@ groups:
     demon: Démonok
     traveller: Utazók
     fabled: Legendás
+    loric: Loric
 
 messages:
     good_team: Jó csapat
@@ -252,6 +253,10 @@ acknowledgements:
         - Ez egy nem hivatalos virtuális grimoár a Blood on the Clocktower játékhoz. Ez a projekt ingyenes, a forráskód elérhető a <a href="https://github.com/Skateside/pocket-grimoire" target="_blank" rel="noopener noreferrer">GitHubon</a>. A projekt nem áll kapcsolatban a Pandemonium Institute-tal. Ha élvezed a Blood on the Clocktower játékot, fontold meg, <a href="https://bloodontheclocktower.com/buy" target="_blank" rel="noopener noreferrer">hogy vásárolsz egy saját grimoárt</a> - az nemcsak rugalmasabb, mint ez a digitális verzió, hanem támogatja a készítőket is.
         - Hibát észleltél vagy van javaslatod a fejlesztésre? Értesíts a <a href="https://discord.gg/eU89j89" target="_blank" rel="noopener noreferrer">pocket-grimoire csatornán az informális Discord szerveren</a> (a nevem ott "Skateside") <a href="https://github.com/Skateside/pocket-grimoire/issues" target="_blank" rel="noopener noreferrer">vagy jelezd GitHubon</a>.
         - <small>Verzió <span id="version"></span></small>
+
+community:
+    created_content: Community Created Content
+    icon_permission: Official role icons used with permission from The Pandemonium Institute.
 
 errors:
     homebrew_json:

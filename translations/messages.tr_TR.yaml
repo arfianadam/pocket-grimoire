@@ -31,6 +31,7 @@ groups:
     demon: İblisler
     traveller: Gezginler
     fabled: Efsanevi
+    loric: Bilgiç
 
 messages:
     good_team: İyi takım
@@ -252,6 +253,10 @@ acknowledgements:
         - Bu, Blood on the Clocktower için resmi olmayan bir sanal grimoire'dur. Bu proje ücretsizdir ve kaynak kodu <a href="https://github.com/Skateside/pocket-grimoire" target="_blank" rel="noopener noreferrer">GitHub'da</a> bulunabilir. Bu proje Pandemonium Enstitüsü ile bağlantılı değildir. Blood on the Clocktower oynamaktan hoşlanıyorsanız, <a href="https://bloodontheclocktower.com/buy" target="_blank" rel="noopener noreferrer">lütfen kendi grimoire'ınızı satın almayı düşünün</a> - bu dijital sürümden daha esnek olmasının yanı sıra, yapımcıları da destekleyecektir.
         - Bir hata mı fark ettiniz veya bir iyileştirme öneriniz mi var? <a href="https://discord.gg/eU89j89" target="_blank" rel="noopener noreferrer">Resmi olmayan discord sunucusundaki pocket-grimoire kanalında</a> (oradaki adım "Skateside") bana bildirin veya GitHub'da bir issue oluşturun.
         - <small>Versiyon <span id="version"></span></small>
+
+community:
+    created_content: Community Created Content
+    icon_permission: Official role icons used with permission from The Pandemonium Institute.
 
 errors:
     homebrew_json:

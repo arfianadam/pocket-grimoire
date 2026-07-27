@@ -31,6 +31,7 @@ groups:
     demon: Demoner
     traveller: Resenärer
     fabled: Fabler
+    loric: Sägen
 
 messages:
     good_team: Goda laget
@@ -252,6 +253,10 @@ acknowledgements:
         - Det här är en inofficiell virtuell spelbok för Blood on the Clocktower. Koden är öppen och finns på <a href="https://github.com/Skateside/pocket-grimoire" target="_blank" rel="noopener noreferrer">GitHub</a>. Projektet är inte knutet till The Pandemonium Institute. Om du gillar Blood on the Clocktower kan du <a href="https://bloodontheclocktower.com/buy" target="_blank" rel="noopener noreferrer">köpa din egen spelbok</a> för att stödja spelets skapare och få en mer flexibel spelbok än denna virtuella.
         - 'Är det något som inte funkar som det ska? Tagga @skateside (på engelska) i <a href="https://discord.gg/eU89j89" target="_blank" rel="noopener noreferrer">kanalen #pocket-grimoire på den inofficiella Discordservern</a> eller anmäl problemet i <a href="https://github.com/Skateside/pocket-grimoire/issues" target="_blank" rel="noopener noreferrer">raise an issue in GitHub</a>.'
         - <small>Version <span id="version"></span></small>
+
+community:
+    created_content: Community Created Content
+    icon_permission: Official role icons used with permission from The Pandemonium Institute.
 
 errors:
     homebrew_json:

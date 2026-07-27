@@ -5,10 +5,14 @@ import {
     lookupOneCached,
     announceInput,
 } from "../utils/elements.js";
+import {
+    debounce,
+} from "../utils/functions.js";
 
 const gameObserver = Observer.create("game");
 const tokenObserver = Observer.create("token");
 const nightOrder = new NightOrder();
+const pad = lookupOneCached(".js--pad").pad;
 
 nightOrder.setHolders({
     first: lookupOneCached("#first-night"),
@@ -20,7 +24,13 @@ gameObserver.on("characters-selected", ({ detail }) => {
     nightOrder.reset();
     nightOrder.setCharacters(
         detail.characters
-            .filter((character) => !["fabled", "traveller"].includes(character.getTeam()))
+            .filter((character) => {
+                return ![
+                    "traveller",
+                    "fabled",
+                    "loric"
+                ].includes(character.getTeam());
+            })
     );
     nightOrder.drawAllNightOrders();
 
@@ -31,11 +41,39 @@ gameObserver.on("clear", () => {
     lookupOneCached(".js--night-order--carousel").scrollLeft = 0;
 });
 
+// #171 - Keep track of the visible night order between refreshes.
+const carousel = lookupOneCached(".js--night-order--carousel");
+const carouselParent = carousel.parentElement;
+const nightOrderCheckbox = lookupOneCached("#night-order-swiped");
+carousel.addEventListener("scroll", debounce(({ target }) => {
+
+    const wasChecked = nightOrderCheckbox.checked;
+
+    nightOrderCheckbox.checked = (
+        target.scrollLeft === carouselParent.offsetWidth
+    );
+
+    if (nightOrderCheckbox.checked !== wasChecked) {
+        announceInput(nightOrderCheckbox);
+    }
+
+}), { passive: true });
+nightOrderCheckbox.addEventListener("input", () => {
+
+    carousel.scrollLeft = (
+        nightOrderCheckbox.checked
+        ? carouselParent.offsetWidth
+        : 0
+    );
+
+});
+
 // TODO: Travellers and Fabled should be unique, it should only be possible to
 // add 1 of each. Add that limitation so we don't need to count them anymore.
 const specialRoles = {
+    traveller: Object.create(null),
     fabled: Object.create(null),
-    traveller: Object.create(null)
+    loric: Object.create(null)
 }
 
 tokenObserver.on("character-add", ({ detail }) => {
@@ -102,6 +140,7 @@ tokenObserver.on("character-remove", ({ detail }) => {
         return;
     }
 
+    nightOrder.removePlayerName(character, detail.token);
     nightOrder.removeCharacter(character);
 
 });
@@ -114,6 +153,28 @@ tokenObserver.on("shroud-toggle", ({ detail }) => {
     }
 
     nightOrder.toggleDead(detail.character, detail.isDead);
+
+    if (detail.isDead) {
+        nightOrder.removePlayerName(detail.character, detail.token);
+    } else {
+
+        nightOrder.setPlayerName(
+            detail.character,
+            detail.token,
+            pad.getPlayerName(detail.character)
+        );
+
+    }
+
+});
+
+tokenObserver.on("set-player-name", ({ detail }) => {
+
+    if (!nightOrder.hasCharacter(detail.character) || detail.character.isDead) {
+        return;
+    }
+
+    nightOrder.setPlayerName(detail.character, detail.token, detail.name);
 
 });
 

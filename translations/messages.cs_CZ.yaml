@@ -31,6 +31,7 @@ groups:
     demon: Démoni
     traveller: Pocestní
     fabled: Legendy
+    loric: Loric
 
 messages:
     good_team: Dobrá družina
@@ -252,6 +253,10 @@ acknowledgements:
         - Toto je neoficiální virtuální grimoár pro hru Blood on the Clocktower (Krvavá hodina odbila). Tento projekt je zdarma a zdrojový kód naleznete na <a href="https://github.com/Skateside/pocket-grimoire" target="_blank" rel="noopener noreferrer">GitHubu</a>. Tento projekt není spojen s Pandemonium Institute. Pokud rádi hrajete Blood on the Clocktower, <a href="https://bloodontheclocktower.com/buy" target="_blank" rel="noopener noreferrer">zvažte prosím koupi vlastního grimoáru</a> – kromě toho, že je flexibilnější než tato digitální verze, také podporuje tvůrce.
         - Všimli jste si chyby nebo máte návrh na vylepšení? Dejte mi vědět v kanálu <a href="https://discord.gg/eU89j89" target="_blank" rel="noopener noreferrer">pocket-grimoire na neoficiálním Discord serveru</a> (moje jméno je „Skateside“) nebo <a href="https://github.com/Skateside/pocket-grimoire/issues" target="_blank" rel="noopener noreferrer">nahlaste problém na GitHubu</a>.
         - <small>Verze <span id="version"></span></small>
+
+community:
+    created_content: Community Created Content
+    icon_permission: Official role icons used with permission from The Pandemonium Institute.
 
 errors:
     homebrew_json:

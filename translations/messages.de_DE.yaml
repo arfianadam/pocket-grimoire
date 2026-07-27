@@ -31,6 +31,7 @@ groups:
     demon: Dämonen
     traveller: Reisende
     fabled: Sagenhafte
+    loric: Loric
 
 messages:
     good_team: Gutes Team
@@ -252,6 +253,10 @@ acknowledgements:
         - Dies ist ein inoffizielles virtuelles Grimoire für Blood on the Clocktower. Dieses Projekt ist kostenlos und der Quellcode kann auf <a href="https://github.com/Skateside/pocket-grimoire" target="_blank" rel="noopener noreferrer">GitHub</a> gefunden werden. Dieses Projekt steht in keiner Verbindung mit dem Pandemonium Institute. Wenn du gerne Blood on the Clocktower spielst, <a href="https://bloodontheclocktower.com/buy" target="_blank" rel="noopener noreferrer">erwäge bitte den Kauf deines eigenen Grimmoire</a> – es ist nicht nur flexibler als diese digitale Version, sondern unterstützt auch die Entwickler.
         - Hast du einen Fehler bemerkt oder Verbesserungsvorschläge? Lass es mich im <a href="https://discord.gg/eU89j89" target="_blank" rel="noopener noreferrer">Pocket-grimoire-Kanal auf dem inoffiziellen Discord Server wissen</a> (mein Name ist "Skateside") oder <a href="https://github.com/Skateside/pocket-grimoire/issues" target="_blank" rel="noopener noreferrer">melde ein Problem auf GitHub</a>.
         - <small>Version <span id="version"></span></small>
+
+community:
+    created_content: Community Created Content
+    icon_permission: Official role icons used with permission from The Pandemonium Institute.
 
 errors:
     homebrew_json:

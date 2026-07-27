@@ -31,6 +31,7 @@ groups:
     demon: Demonar
     traveller: Omreisande
     fabled: Segnomspunne
+    loric: Loric
 
 messages:
     good_team: Godt lag
@@ -252,6 +253,10 @@ acknowledgements:
         - Dette er ein uoffisiell virtuell grimoire for Blodet på klokketårnet. Prosjektet er gratis og kjeldekoden finst på <a href="https://github.com/Skateside/pocket-grimoire" target="_blank" rel="noopener noreferrer">GitHub</a>. Prosjektet er ikkje knytt til the Pandemonium Institute. Om du har glede av å spele Blodet på klokketårnet, <a href="https://bloodontheclocktower.com/buy" target="_blank" rel="noopener noreferrer">vurder gjerne å kjøpe din eigen grimoire</a> - i tillegg til å vere meir fleksibel enn denne digitale utgåva, stør det også utviklarane.
         - Lagt merke til ein teknisk feil eller har du eit framlegg til forbetring? La meg få vite det i <a href="https://discord.gg/eU89j89" target="_blank" rel="noopener noreferrer">pocket-grimoire-kanalen på den uoffisielle discord-serveren</a> (namnet mitt der er "Skateside") eller <a href="https://github.com/Skateside/pocket-grimoire/issues" target="_blank" rel="noopener noreferrer">ta eventuelle problem opp på GitHub</a>.
         - <small>Versjon <span id="version"></span></small>
+
+community:
+    created_content: Community Created Content
+    icon_permission: Official role icons used with permission from The Pandemonium Institute.
 
 errors:
     homebrew_json:

@@ -31,6 +31,7 @@ groups:
     demon: Quỷ
     traveller: Du khách
     fabled: Ngụ ngôn
+    loric: Truyền Thuyết
 
 messages:
     good_team: Phe thiện
@@ -252,6 +253,10 @@ acknowledgements:
         - Đây là sách ma thuật ảo không chính thức của Tháp đồng hồ nhuốm máu. Dự án này miễn phí và là nguồn mở có thể tìm thấy trên <a href="https://github.com/Skateside/pocket-grimoire" target="_blank" rel="noopener noreferrer">GitHub</a>. Dự án này không liên kết với The Pandemonium Institute. Nếu bạn thích chơi Tháp đồng hồ nhốm máu, <a href="https://bloodontheclocktower.com/buy" target="_blank" rel="noopener noreferrer">vui lòng tính đến mua bản thật của game</a> - ngoài việc nó linh hoạt hơn bản này, nó có thể hỗ trợ nhà phát triển.
         - Gặp trục trặc hoặc có ý kiến để cải tiến? Cho mình biết tại <a href="https://discord.gg/eU89j89" target="_blank" rel="noopener noreferrer">kênh pocket-grimoire trong server không chính thức trên discord</a> (tên mình là "Skateside") hoặc <a href="https://github.com/Skateside/pocket-grimoire/issues" target="_blank" rel="noopener noreferrer">báo lỗi trên Github</a>.
         - <small>Phiên bản <span id="version"></span></small>
+
+community:
+    created_content: Community Created Content
+    icon_permission: Official role icons used with permission from The Pandemonium Institute.
 
 errors:
     homebrew_json:

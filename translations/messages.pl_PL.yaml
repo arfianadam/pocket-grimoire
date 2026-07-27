@@ -31,6 +31,7 @@ groups:
     demon: Demony
     traveller: Podróżni
     fabled: Baśniowi
+    loric: Mityczny
 
 messages:
     good_team: Dobra drużyna
@@ -252,6 +253,10 @@ acknowledgements:
         - To jest nieoficjalny wirtualny Grymuar dla gry Blood on the Clocktower. Ten projekt jest bezpłatny, a kod źródłowy można znaleźć na <a href="https://github.com/Skateside/pocket-grimoire" target="_blank" rel="noopener noreferrer">GitHub</a>. Ten projekt nie jest powiązany z The Pandemonium Institute. Jeśli lubisz grać w Blood on the Clocktower, <a href="https://bloodontheclocktower.com/buy" target="_blank" rel="noopener noreferrer">rozważ zakup własnego Grymuaru</a>, który pozwoli na łatwiejszą grę w porównaniu do cyfrowej wersji. Dodatkowo w ten sposób wesprzesz twórców.
         - Zauważyłeś błąd lub masz sugestie poprawy? Daj mi znać na kanale <a href="https://discord.gg/eU89j89" target="_blank" rel="noopener noreferrer">pocket-grimoire na nieoficjalnym serwerze Discord</a> (mój nick to "Skateside") lub <a href="https://github.com/Skateside/pocket-grimoire/issues" target="_blank" rel="noopener noreferrer">otwórz issue w GitHub</a>.
         - <small>Wersja <span id="version"></span></small>
+
+community:
+    created_content: Community Created Content
+    icon_permission: Official role icons used with permission from The Pandemonium Institute.
 
 errors:
     homebrew_json:

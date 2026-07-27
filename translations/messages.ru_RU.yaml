@@ -31,6 +31,7 @@ groups:
     demon: Демоны
     traveller: Странники
     fabled: Мифы
+    loric: Летописец
 
 messages:
     good_team: Добро
@@ -253,6 +254,10 @@ acknowledgements:
         - Это - неофициальный виртуальный гримуар для Blood on the Clocktower. Это некоммерческий проект, исходный код которого можно найти на <a href="https://github.com/Skateside/pocket-grimoire" target="_blank" rel="noopener noreferrer">GitHub</a>. Этот проект не имеет связи с компанией The Pandemonium Institute. Если вам нравится игра Blood on the Clocktower, настоятельно рекомендуем приобрести физическую версию, чтобы не только играть с большим удобством, но и поддержать создателей.
         - 'У вас есть информация об ошибках или предложения? Дайте мне знать <a href="https://discord.gg/eU89j89" target="_blank" rel="noopener noreferrer">в канале #pocket-grimoire на неофициальном discord-сервере игры</a> (мой никнейм там - Skateside) или <a href="https://github.com/Skateside/pocket-grimoire/issues" target="_blank" rel="noopener noreferrer">подайте заявку на GitHub</a>.'
         - <small>Версия <span id="version"></span></small>
+
+community:
+    created_content: Community Created Content
+    icon_permission: Official role icons used with permission from The Pandemonium Institute.
 
 errors:
     homebrew_json:
