@@ -9,6 +9,7 @@ import {
 } from "../utils/elements.js";
 
 const STORAGE_KEY = "pocket-grimoire:draw-host";
+const MERCURE_URL = "/.well-known/mercure";
 const gameObserver = Observer.create("game");
 const hostDialog = Dialog.create(lookupOneCached("#distributed-draw-host"));
 const pad = lookupOneCached(".js--pad").pad;
@@ -245,11 +246,11 @@ function connectEvents() {
         eventSource = null;
     }
 
-    if (!hostSession?.mercureUrl || !hostSession?.topic) {
+    if (!hostSession?.topic) {
         return;
     }
 
-    const url = new URL(hostSession.mercureUrl);
+    const url = new URL(MERCURE_URL, window.location.origin);
     url.searchParams.append("topic", hostSession.topic);
     eventSource = new EventSource(url);
     eventSource.addEventListener("message", () => refreshHost());
@@ -389,8 +390,7 @@ gameObserver.on("distributed-draw-request", async ({ detail }) => {
             hostSecret: response.hostSecret,
             joinUrl: response.joinUrl,
             expiresAt: response.expiresAt,
-            topic: response.topic,
-            mercureUrl: response.mercureUrl
+            topic: response.topic
         });
         renderHost(response.hostState);
         connectEvents();

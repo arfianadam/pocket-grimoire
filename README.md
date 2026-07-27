@@ -135,27 +135,24 @@ All generated files (vendor, `node_modules`, compiled assets) live in Docker vol
 
 ### Distributed draw and Mercure
 
-The Compose stack includes the pinned `dunglas/mercure:v0.24.2` hub at `http://localhost:3000/.well-known/mercure`. “Draw on devices” uses that hub for version-only notifications and falls back to a 30-second recovery poll.
+The Compose stack exposes the application and the pinned `dunglas/mercure:v0.24.2` hub through the same origin at `http://localhost:8000`. Mercure handles `/.well-known/mercure` directly and proxies all application routes to Symfony. “Draw on devices” uses the hub for version-only notifications and falls back to a 30-second recovery poll.
 
-For testing with physical phones on a local network, `localhost` is not reachable from the phone. Start Compose with URLs based on the development machine's LAN hostname or IP address:
+For testing with physical phones on a local network, open the development machine's LAN hostname or IP address instead of `localhost`:
 
 ```bash
-MERCURE_PUBLIC_URL=http://192.168.1.10:3000/.well-known/mercure \
-MERCURE_CORS_ALLOWED_ORIGINS=http://192.168.1.10:8000 \
 docker compose up --build
 ```
 
 Open `http://192.168.1.10:8000` on the Storyteller device so the generated join link uses the same reachable host. Replace the example address with the development machine's address.
 
-Production must provide all three values below. The internal URL is used by Symfony to publish; the public URL must be reachable by every player's device. Use a long, random JWT secret and configure the hub with the same publisher key.
+Production only needs the internal URL used by Symfony to publish and a long, random JWT secret shared with the hub:
 
 ```dotenv
-MERCURE_URL=https://mercure.internal/.well-known/mercure
-MERCURE_PUBLIC_URL=https://example.com/.well-known/mercure
+MERCURE_URL=http://mercure/.well-known/mercure
 MERCURE_JWT_SECRET=replace-with-a-random-production-secret
 ```
 
-Configure the hub's `cors_origins` for the public Pocket Grimoire origin and ensure the public hub URL uses HTTPS when the application does. Run the cleanup command from a scheduler (hourly is sufficient) to delete rooms after their fixed 24-hour expiry:
+Point the public HTTPS route at port `8000`; both the application and Mercure will then use that origin, so no public Mercure URL or CORS configuration is required. Run the cleanup command from a scheduler (hourly is sufficient) to delete rooms after their fixed 24-hour expiry:
 
 ```bash
 php bin/console app:draw-sessions:cleanup

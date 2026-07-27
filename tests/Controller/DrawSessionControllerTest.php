@@ -60,6 +60,7 @@ class DrawSessionControllerTest extends WebTestCase
         $publicId = $created['publicId'];
         $hostSecret = $created['hostSecret'];
         self::assertStringNotContainsString($hostSecret, $created['joinUrl']);
+        self::assertArrayNotHasKey('mercureUrl', $created);
         self::assertNull($created['hostState']['slots'][0]['role']);
 
         $client->request('GET', "/en_GB/draw-sessions/{$publicId}");

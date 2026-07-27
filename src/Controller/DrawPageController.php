@@ -17,8 +17,7 @@ class DrawPageController extends AbstractController
     public function join(
         string $publicId,
         DrawSessionService $drawSessions,
-        DrawSessionPublisher $publisher,
-        string $mercurePublicUrl
+        DrawSessionPublisher $publisher
     ): Response {
         try {
             $session = $drawSessions->find($publicId);
@@ -28,7 +27,6 @@ class DrawPageController extends AbstractController
                 'initialState' => null,
                 'loadError' => $problem->getMessage(),
                 'topic' => null,
-                'mercurePublicUrl' => $mercurePublicUrl,
             ], $problem->getStatusCode());
         }
 
@@ -37,7 +35,6 @@ class DrawPageController extends AbstractController
             'initialState' => $drawSessions->serializePublic($session),
             'loadError' => null,
             'topic' => $publisher->topic($session),
-            'mercurePublicUrl' => $mercurePublicUrl,
         ]);
     }
 }

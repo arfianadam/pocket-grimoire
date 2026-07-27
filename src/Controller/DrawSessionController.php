@@ -22,18 +22,15 @@ class DrawSessionController extends AbstractController
     private $drawSessions;
     private $csrfTokens;
     private $publisher;
-    private $mercurePublicUrl;
 
     public function __construct(
         DrawSessionService $drawSessions,
         CsrfTokenManagerInterface $csrfTokens,
-        DrawSessionPublisher $publisher,
-        string $mercurePublicUrl
+        DrawSessionPublisher $publisher
     ) {
         $this->drawSessions = $drawSessions;
         $this->csrfTokens = $csrfTokens;
         $this->publisher = $publisher;
-        $this->mercurePublicUrl = $mercurePublicUrl;
     }
 
     /**
@@ -73,7 +70,6 @@ class DrawSessionController extends AbstractController
                 'joinUrl' => $joinUrl,
                 'expiresAt' => $session->getExpiresAt()->format(\DateTimeInterface::ATOM),
                 'topic' => $this->publisher->topic($session),
-                'mercureUrl' => $this->mercurePublicUrl,
                 'hostState' => $this->drawSessions->serializeHost($session),
             ], 201);
         } catch (DrawSessionProblem $problem) {

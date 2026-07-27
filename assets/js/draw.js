@@ -1,5 +1,6 @@
 import "regenerator-runtime/runtime";
 
+const MERCURE_URL = "/.well-known/mercure";
 const config = window.DRAW_PLAYER_CONFIG;
 const secretKey = `pocket-grimoire:draw-claim:${config.publicId}`;
 const picker = document.querySelector("#draw-picker");
@@ -292,11 +293,11 @@ visibilityButton.addEventListener("click", () => {
 
 function connectEvents() {
 
-    if (!config.mercureUrl || !config.topic || config.loadError) {
+    if (!config.topic || config.loadError) {
         return;
     }
 
-    const url = new URL(config.mercureUrl);
+    const url = new URL(MERCURE_URL, window.location.origin);
     url.searchParams.append("topic", config.topic);
     eventSource = new EventSource(url);
     eventSource.addEventListener("message", () => refresh());

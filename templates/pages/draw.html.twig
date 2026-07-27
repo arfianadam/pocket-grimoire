@@ -48,7 +48,6 @@ var DRAW_PLAYER_CONFIG = {
     claimsUrl: {{ path('draw_session_claim', { publicId: publicId })|json_encode|raw }},
     claimUrl: {{ path('draw_session_claim_state', { publicId: publicId })|json_encode|raw }},
     topic: {{ topic|json_encode|raw }},
-    mercureUrl: {{ mercurePublicUrl|json_encode|raw }},
     i18n: {
         choose: {{ 'draw.choose'|trans|json_encode|raw }},
         claiming: {{ 'draw.claiming'|trans|json_encode|raw }},

@@ -98,30 +98,7 @@ test("two devices draw privately and synchronize with the grimoire", async ({
     browser
 }) => {
 
-    const useComposeMercure = async (context) => {
-        await context.addInitScript(() => {
-
-            const BrowserEventSource = window.EventSource;
-
-            window.EventSource = class extends BrowserEventSource {
-
-                constructor(url, options) {
-                    super(
-                        String(url).replace(
-                            "http://localhost:3000",
-                            "http://mercure"
-                        ),
-                        options
-                    );
-                }
-
-            };
-
-        });
-    };
-
     const hostContext = await browser.newContext();
-    await useComposeMercure(hostContext);
     const host = await hostContext.newPage();
     await host.goto("/en_GB/");
 
@@ -166,8 +143,7 @@ test("two devices draw privately and synchronize with the grimoire", async ({
             hostSecret: result.hostSecret,
             joinUrl: result.joinUrl,
             expiresAt: result.expiresAt,
-            topic: result.topic,
-            mercureUrl: result.mercureUrl
+            topic: result.topic
         }));
 
         return result;
@@ -185,10 +161,6 @@ test("two devices draw privately and synchronize with the grimoire", async ({
 
     const playerContextOne = await browser.newContext();
     const playerContextTwo = await browser.newContext();
-    await Promise.all([
-        useComposeMercure(playerContextOne),
-        useComposeMercure(playerContextTwo)
-    ]);
     const playerOne = await playerContextOne.newPage();
     const playerTwo = await playerContextTwo.newPage();
     await Promise.all([
