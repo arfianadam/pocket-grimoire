@@ -28,5 +28,7 @@ import "./processes/notes.js";
 
 import "./processes/acknowledgements.js";
 
+import "./processes/wake-lock.js";
+
 import "./processes/store.js";
 import "./processes/distributed-draw.js";

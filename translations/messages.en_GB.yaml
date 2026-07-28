@@ -182,6 +182,10 @@ grimoire:
         clear_grimoire: Clear Grimoire
         clear_grimoire_warning: Are you sure you want to clear all the tokens?
         show_night_order: Show night order
+        keep_screen_awake: Keep screen awake
+        keep_screen_awake_active: The screen will stay awake while this page is visible.
+        keep_screen_awake_error: The screen could not be kept awake. Check your browser or battery-saving settings, then try again.
+        keep_screen_awake_unsupported: This browser does not support keeping the screen awake.
         character_size: Character token size
         reminder_size: Reminder token size
         token_settings: Token Settings

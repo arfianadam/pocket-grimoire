@@ -183,6 +183,10 @@ grimoire:
         clear_grimoire: Hapus Grimoire
         clear_grimoire_warning: Apakah Anda yakin ingin menghapus semua token?
         show_night_order: Tampilkan urutan malam
+        keep_screen_awake: Jaga layar tetap menyala
+        keep_screen_awake_active: Layar akan tetap menyala selama halaman ini terlihat.
+        keep_screen_awake_error: Layar tidak dapat dijaga tetap menyala. Periksa pengaturan browser atau penghemat baterai Anda, lalu coba lagi.
+        keep_screen_awake_unsupported: Browser ini tidak mendukung fitur menjaga layar tetap menyala.
         character_size: Ukuran token karakter
         reminder_size: Ukuran token pengingat
         token_settings: Pengaturan token

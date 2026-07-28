@@ -37,6 +37,27 @@
             </div>
 
             <div class="mt-4">
+                {{ forms.switch({
+                    node: 'div',
+                    label: 'grimoire.grimoire.keep_screen_awake'|trans,
+                    name: 'keep-screen-awake',
+                    id: 'keep-screen-awake',
+                    attributes: {
+                        'aria-describedby': 'wake-lock-status'
+                    }
+                }) }}
+                <p
+                    id="wake-lock-status"
+                    class="mt-2 text-small"
+                    role="status"
+                    data-active="{{ 'grimoire.grimoire.keep_screen_awake_active'|trans|e('html_attr') }}"
+                    data-error="{{ 'grimoire.grimoire.keep_screen_awake_error'|trans|e('html_attr') }}"
+                    data-unsupported="{{ 'grimoire.grimoire.keep_screen_awake_unsupported'|trans|e('html_attr') }}"
+                    hidden
+                ></p>
+            </div>
+
+            <div class="mt-4">
                 {{ forms.range({
                     label: 'grimoire.grimoire.character_size'|trans,
                     name: 'token-size',
